@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word and Letter Count</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    textarea {
+        width: 300px;
+        height: 150px;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    #output {
+        font-size: 22px;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    #error {
+        color: red;
+        margin-top: 5px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+
+    <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+
+    <div id="output">
+        Word Count: 0 <br>
+        Letter Count: 0
+    </div>
+
+    <div id="error"></div>
+
+</body>
+
+<script>
+    const textarea = document.getElementById("textInput");
+    const output = document.getElementById("output");
+    const error = document.getElementById("error");
+
+    textarea.addEventListener("input", () => {
+
+        let text = textarea.value;
+
+        // Split into words
+        let words = text.trim().split(/\s+/).filter(word => word.length > 0);
+
+        // If more than 10 words → stop input
+        if (words.length > 10) {
+            error.textContent = "❌ Only 10 words allowed!";
+
+            // Remove extra words
+            textarea.value = words.slice(0, 10).join(" ");
+            words = words.slice(0, 10);
+        } else {
+            error.textContent = "";
+        }
+
+        // Count letters (ignore spaces)
+        let letterCount = textarea.value.replace(/\s+/g, '').length;
+
+        output.innerHTML = `
+            Word Count: ${words.length} <br>
+            Letter Count: ${letterCount}
+        `;
+    });
+</script>
+
+</html>
