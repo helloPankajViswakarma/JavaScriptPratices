@@ -62,7 +62,7 @@
         // If more than 10 words → stop input
         if (words.length > 10) {
             error.textContent = "❌ Only 10 words allowed!";
-
+           
             // Remove extra words
             textarea.value = words.slice(0, 10).join(" ");
             words = words.slice(0, 10);
